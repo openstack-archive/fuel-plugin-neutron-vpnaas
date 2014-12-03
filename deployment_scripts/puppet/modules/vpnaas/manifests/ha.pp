@@ -51,12 +51,12 @@ class vpnaas::ha {
     }
 
   if $multiple_agents {
-    $csr_metadata = undef
-    $csr_multistate_hash = { 'type' => 'clone' }
+    $csr_metadata        = undef
+    $csr_complex_type    = 'clone'
     $csr_ms_metadata     = { 'interleave' => 'true' }
   } else {
     $csr_metadata        = { 'resource-stickiness' => '1' }
-    $csr_multistate_hash = undef
+    $csr_complex_type    = undef
     $csr_ms_metadata     = undef
   }
 
@@ -78,16 +78,16 @@ class vpnaas::ha {
       'multiple_agents' => $multiple_agents,
     },
     csr_metadata        => $csr_metadata,
-    csr_multistate_hash => $csr_multistate_hash,
+    csr_complex_type    => $csr_complex_type,
     csr_ms_metadata     => $csr_ms_metadata,
-    csr_mon_intr    => '20',
-    csr_mon_timeout => '10',
-    csr_timeout     => '60',
-    service_name    => $::neutron::params::vpnaas_agent_service,
-    package_name    => $vpnaas_agent_package,
-    service_title   => 'neutron-vpnaas-service',
-    primary         => $primary_controller,
-    hasrestart      => false,
+    csr_mon_intr        => '20',
+    csr_mon_timeout     => '10',
+    csr_timeout         => '60',
+    service_name        => $::neutron::params::vpnaas_agent_service,
+    package_name        => $vpnaas_agent_package,
+    service_title       => 'neutron-vpnaas-service',
+    primary             => $primary_controller,
+    hasrestart          => false,
   }
 
     cluster::corosync::cs_with_service {'vpn-and-ovs':
