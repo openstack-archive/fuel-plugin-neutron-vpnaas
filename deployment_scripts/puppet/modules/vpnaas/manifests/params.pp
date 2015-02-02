@@ -3,29 +3,24 @@
 class vpnaas::params {
 
   if($::osfamily == 'Redhat') {
-    $server_package     = 'openstack-neutron'
-    $server_service     = 'neutron-server'
 
-    $vpnaas_agent_package = 'openstack-neutron-vpn-agent'
-    $vpnaas_agent_service = 'neutron-vpn-agent'
-    $openswan_package     = 'openswan'
+    $server_package        = 'openstack-neutron'
 
-    $dashboard_package  = 'openstack-dashboard'
-    $dashboard_service  = 'httpd'
-    $dashboard_settings = '/etc/openstack-dashboard/local_settings'
+    $vpnaas_agent_package  = 'openstack-neutron-vpn-agent'
+
+    $dashboard_package     = 'openstack-dashboard'
+    $dashboard_service     = 'httpd'
+    $dashboard_settings    = '/etc/openstack-dashboard/local_settings'
 
   } elsif($::osfamily == 'Debian') {
 
-    $server_package     = 'neutron-server'
-    $server_service     = 'neutron-server'
+    $server_package        = 'neutron-server'
 
-    $vpnaas_agent_package = 'neutron-vpn-agent'
-    $vpnaas_agent_service = 'neutron-vpn-agent'
-    $openswan_package     = 'openswan'
+    $vpnaas_agent_package  = 'neutron-vpn-agent'
 
-    $dashboard_package  = 'python-django-horizon'
-    $dashboard_service  = 'apache2'
-    $dashboard_settings = '/etc/openstack-dashboard/local_settings.py'
+    $dashboard_package     = 'python-django-horizon'
+    $dashboard_service     = 'apache2'
+    $dashboard_settings    = '/etc/openstack-dashboard/local_settings.py'
 
   } else {
 
@@ -33,7 +28,12 @@ class vpnaas::params {
 
   }
 
-  $ipsec_service       = 'ipsec'
-  $vpn_agent_ocf_file  = '/etc/puppet/modules/cluster/files/ocf/neutron-agent-vpn'
-  $cleanup_script_file = '/etc/puppet/modules/cluster/files/q-agent-cleanup.py'
+  $ipsec_service        = 'ipsec'
+  $server_service       = 'neutron-server'
+  $vpnaas_agent_service = 'neutron-vpn-agent'
+
+  $openswan_package     = 'openswan'
+
+  $vpn_agent_ocf_file   = '/etc/puppet/modules/cluster/files/ocf/neutron-agent-vpn'
+  $cleanup_script_file  = '/etc/puppet/modules/cluster/files/q-agent-cleanup.py'
 }
