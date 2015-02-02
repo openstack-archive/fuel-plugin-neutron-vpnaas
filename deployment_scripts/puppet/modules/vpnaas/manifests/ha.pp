@@ -81,6 +81,18 @@ class vpnaas::ha {
     hasrestart          => false,
   }
 
+  #fuel-plugins system doesn't have 'primary-controller' role so
+  #we have to separate controllers' deployment here using waiting cycles.
+  if ! $primary_controller {
+    exec {'waiting-for-vpn-agent':
+      tries     => 30,
+      try_sleep => 10,
+      command   => "pcs resource show p_neutron-vpn-agent > /dev/null 2>&1",
+      path      => '/usr/sbin:/usr/bin:/sbin:/bin',
+    }
+    Exec['waiting-for-vpn-agent'] -> Cluster::Corosync::Cs_service["vpn"]
+  }
+
   File['q-agent-cleanup.py']                        -> Cluster::Corosync::Cs_service["vpn"]
   File["${vpnaas::params::vpn_agent_ocf_file}"]     -> Cluster::Corosync::Cs_service["vpn"] ->
   Cluster::Corosync::Cs_with_service['vpn-and-ovs'] -> Class['vpnaas::common']

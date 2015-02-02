@@ -20,7 +20,7 @@ class vpnaas::common {
       enable  => true,
     }
 
-    exec { "enable_vpnaas_dashboard":
+    exec {'enable_vpnaas_dashboard':
       command => "/bin/sed -i \"s/'enable_vpn': False/'enable_vpn': True/\" $vpnaas::params::dashboard_settings",
       unless  => "/bin/egrep \"'enable_vpn': True\" $vpnaas::params::dashboard_settings",
     }
@@ -36,6 +36,7 @@ class vpnaas::common {
       value                => 'plugin.VPNDriverPlugin',
     }
 
-    Exec['enable_vpnaas_dashboard'] -> Ini_subsetting['add_vpnaas_service_plugin'] ~>
-    Service[$vpnaas::params::server_service] ~> Service[$vpnaas::params::dashboard_service]
+    Exec['enable_vpnaas_dashboard']             ~> Service[$vpnaas::params::dashboard_service]
+    Ini_subsetting['add_vpnaas_service_plugin'] ~> Service[$vpnaas::params::server_service]
+    Neutron_config<||>                          ~> Service[$vpnaas::params::server_service]
 }
