@@ -10,18 +10,9 @@ class vpnaas::common {
       enable  => true,
     }
 
-    exec { "enable_vpnaas_dashboard":
-      command => "/bin/sed -i \"s/'enable_vpn': False/'enable_vpn': True/\" $vpnaas::params::dashboard_settings",
-      unless  => "/bin/egrep \"'enable_vpn': True\" $vpnaas::params::dashboard_settings",
-    }
-
     service { $vpnaas::params::server_service:
       ensure  => running,
       enable  => true,
-    }
-
-    neutron_config {
-      'DEFAULT/service_plugins':  value => 'router,vpnaas,metering';
     }
 
     service { $vpnaas::params::ipsec_service:
@@ -29,6 +20,22 @@ class vpnaas::common {
       enable  => true,
     }
 
-    Neutron_config<||>                    ~> Service[$vpnaas::params::server_service]
-    Exec['enable_vpnaas_dashboard']       ~> Service[$vpnaas::params::dashboard_service]
+    exec { "enable_vpnaas_dashboard":
+      command => "/bin/sed -i \"s/'enable_vpn': False/'enable_vpn': True/\" $vpnaas::params::dashboard_settings",
+      unless  => "/bin/egrep \"'enable_vpn': True\" $vpnaas::params::dashboard_settings",
+    }
+
+    ini_subsetting {'add_vpnaas_service_plugin':
+      ensure               => present,
+      section              => 'DEFAULT',
+      key_val_separator    => '=',
+      path                 => '/etc/neutron/neutron.conf',
+      setting              => 'service_plugins',
+      subsetting           => 'neutron.services.vpn.',
+      subsetting_separator => ',',
+      value                => 'plugin.VPNDriverPlugin',
+    }
+
+    Exec['enable_vpnaas_dashboard'] -> Ini_subsetting['add_vpnaas_service_plugin'] ~>
+    Service[$vpnaas::params::server_service] ~> Service[$vpnaas::params::dashboard_service]
 }
