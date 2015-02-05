@@ -54,8 +54,12 @@ class vpnaas::agent (
 ) {
 
   include vpnaas::params
+  include vpn-patch::vpn-agent
 
   Neutron_vpnaas_agent_config<||> ~> Service['neutron-vpnaas-service']
+
+  Neutron_vpnaas_agent_config<||> ->
+  Class["vpn-patch::vpn-agent"]   ~> Service['neutron-vpnaas-service']
 
   case $vpn_device_driver {
     /\.OpenSwan/: {

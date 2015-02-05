@@ -12,6 +12,9 @@ class vpnaas::params {
     $dashboard_service     = 'httpd'
     $dashboard_settings    = '/etc/openstack-dashboard/local_settings'
 
+    $neutron_source_path   = "/usr/lib/python2.6/site-packages/neutron"
+    $dashboard_source_path = "/usr/share/openstack-dashboard"
+
   } elsif($::osfamily == 'Debian') {
 
     $server_package        = 'neutron-server'
@@ -21,6 +24,9 @@ class vpnaas::params {
     $dashboard_package     = 'python-django-horizon'
     $dashboard_service     = 'apache2'
     $dashboard_settings    = '/etc/openstack-dashboard/local_settings.py'
+
+    $neutron_source_path   = "/usr/lib/python2.7/dist-packages/neutron"
+    $dashboard_source_path = "/usr/share/openstack-dashboard"
 
   } else {
 
@@ -36,4 +42,6 @@ class vpnaas::params {
 
   $vpn_agent_ocf_file   = '/etc/puppet/modules/cluster/files/ocf/neutron-agent-vpn'
   $cleanup_script_file  = '/etc/puppet/modules/cluster/files/q-agent-cleanup.py'
+
+  $vpn_patches_dir      = '/tmp/vpn_patches_dir'
 }
