@@ -1,0 +1,30 @@
+diff --git a/openstack_dashboard/dashboards/project/vpn/forms.py b/openstack_dashboard/dashboards/project/vpn/forms.py
+index 0eec49b..7690f86 100644
+--- a/openstack_dashboard/dashboards/project/vpn/forms.py
++++ b/openstack_dashboard/dashboards/project/vpn/forms.py
+@@ -172,9 +172,7 @@ class UpdateIPSecPolicy(forms.SelfHandlingForm):
+                  ('group14', _('group14'))])
+     transform_protocol = forms.ChoiceField(
+         label=_("Transform Protocol"),
+-        choices=[('esp', _('esp')),
+-                 ('ah', _('ah')),
+-                 ('ah-esp', _('ah-esp'))])
++        choices=[('esp', _('esp')),])
+ 
+     failure_url = 'horizon:project:vpn:index'
+ 
+diff --git a/openstack_dashboard/dashboards/project/vpn/workflows.py b/openstack_dashboard/dashboards/project/vpn/workflows.py
+index 00864c1..da1d83a 100644
+--- a/openstack_dashboard/dashboards/project/vpn/workflows.py
++++ b/openstack_dashboard/dashboards/project/vpn/workflows.py
+@@ -254,9 +254,7 @@ class AddIPSecPolicyAction(workflows.Action):
+         self.fields['pfs'].choices = pfs_choices
+         self.fields['pfs'].initial = "group5"
+ 
+-        transform_protocol_choices = [("esp", "esp"),
+-                                      ("ah", "ah"),
+-                                      ("ah-esp", "ah-esp")]
++        transform_protocol_choices = [("esp", "esp")]
+         self.fields['transform_protocol'].choices = transform_protocol_choices
+ 
+     class Meta:

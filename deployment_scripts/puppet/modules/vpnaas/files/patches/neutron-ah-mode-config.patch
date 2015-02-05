@@ -1,0 +1,18 @@
+diff --git a/neutron/services/vpn/device_drivers/template/openswan/ipsec.conf.template b/neutron/services/vpn/device_drivers/template/openswan/ipsec.conf.template
+index 546e27e..3fb5d72 100644
+--- a/neutron/services/vpn/device_drivers/template/openswan/ipsec.conf.template
++++ b/neutron/services/vpn/device_drivers/template/openswan/ipsec.conf.template
+@@ -54,8 +54,13 @@ conn %default
+     ##########################
+     # [transform_protocol]
+     auth={{ipsec_site_connection.ipsecpolicy.transform_protocol}}
++    {% if ipsec_site_connection.ipsecpolicy.transform_protocol == "ah" %}
++    # [auth_algorithm]-[pfs]
++    phase2alg={{ipsec_site_connection.ipsecpolicy.auth_algorithm}};{{ipsec_site_connection.ipsecpolicy.pfs}}
++    {% else %}
+     # [encryption_algorithm]-[auth_algorithm]-[pfs]
+     phase2alg={{ipsec_site_connection.ipsecpolicy.encryption_algorithm}}-{{ipsec_site_connection.ipsecpolicy.auth_algorithm}};{{ipsec_site_connection.ipsecpolicy.pfs}}
++    {% endif %}
+     # [encapsulation_mode]
+     type={{ipsec_site_connection.ipsecpolicy.encapsulation_mode}}
+     # [lifetime_value]
