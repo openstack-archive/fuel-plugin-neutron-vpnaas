@@ -54,6 +54,7 @@ class vpnaas::agent (
 ) {
 
   include vpnaas::params
+  include vpn-patch::vpn-agent
 
   Neutron_vpnaas_agent_config<||> ~> Service['neutron-vpnaas-service']
 
@@ -96,6 +97,9 @@ class vpnaas::agent (
       name    => $::vpnaas::params::vpnaas_agent_package,
     }
   }
+
+  Package['neutron-vpnaas-agent'] -> Class["vpn-patch::vpn-agent"] ->
+  Neutron_vpnaas_agent_config<||>
 
   if $manage_service {
     if $enabled {
