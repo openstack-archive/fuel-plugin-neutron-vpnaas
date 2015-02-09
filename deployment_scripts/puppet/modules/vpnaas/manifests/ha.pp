@@ -8,7 +8,7 @@ class vpnaas::ha {
   $fuel_settings      = parseyaml($astute_settings_yaml)
   $access_hash        = $fuel_settings['access']
   $neutron_config     = $fuel_settings['quantum_settings']
-  $primary_controller = $fuel_settings['role'] ? { 'primary-controller'=>true, default=>false }
+  $primary_controller = $is_primary_controller ? { 'yes'=>true, default=>false }
 
   $debug              = true
   $verbose            = true
@@ -44,8 +44,6 @@ class vpnaas::ha {
     hasrestart => true,
     provider   => 'pacemaker',
   }
-
-  Service['p_neutron-l3-agent'] -> Class['vpnaas::agent']
 
   $csr_metadata        = undef
   $csr_complex_type    = 'clone'
@@ -90,9 +88,10 @@ class vpnaas::ha {
       command   => "pcs resource show p_neutron-vpn-agent > /dev/null 2>&1",
       path      => '/usr/sbin:/usr/bin:/sbin:/bin',
     }
-    Exec['waiting-for-vpn-agent'] -> Cluster::Corosync::Cs_service["vpn"]
+    Exec['waiting-for-vpn-agent']                   -> Cluster::Corosync::Cs_service["vpn"]
   }
 
+  Service['p_neutron-l3-agent']                     -> Class['vpnaas::agent']
   File['q-agent-cleanup.py']                        -> Cluster::Corosync::Cs_service["vpn"]
   File["${vpnaas::params::vpn_agent_ocf_file}"]     -> Cluster::Corosync::Cs_service["vpn"] ->
   Cluster::Corosync::Cs_with_service['vpn-and-ovs'] -> Class['vpnaas::common']
