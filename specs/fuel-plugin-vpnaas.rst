@@ -22,7 +22,7 @@ and a private network in some cloud.
 Proposed change
 ===============
 
-Implement a FUEL plugin which will deploy IPSec service(OpenSwan) and configure
+Implement a Fuel plugin which will deploy IPSec service(OpenSwan) and configure
 VPNaaS functionality in Neutron and Horizon.
 
 Alternatives
@@ -88,16 +88,20 @@ Assignee(s)
 
 Primary assignee:
 
-Feature Lead: Andrey Epifanov
-Mandatory Design Reviewers: Stanislaw Bogatkin, Sergey Kolekonov,
-Sergey Vasilenko
-Developers: Andrey Epifanov
-QA: Timur Nurlygayanov
+    Andrey Epifanov <aepifanov@mirantis.com> - feature lead, developer
+
+Other contributors:
+
+    Stanislaw Bogatkin <sbogatkin@mirantis.com> - design reviewer
+    Sergey Kolekonov <skilekonov@mirantis.com> - design reviewer
+    Sergey Vasilenko <svasilenko@mirantis.com> - design reviewer
+    Timur Nurlygayanov <tnurlygayanov@mirantis.com> - QA engineer
+    Irina Povolotskaya <ipovolotskaya@mirantis.com> - technical writer
 
 Work Items
 ----------
 
-* Implement FUEL plugin.
+* Implement Fuel plugin.
 * Implement puppet manifests.
 * Testing.
 * Write Documentation.
@@ -106,7 +110,7 @@ Dependencies
 ============
 
 * OpenSwan package.
-* FUEL 6.0 and higher.
+* Fuel 6.0 and higher.
 
 Testing
 =======
@@ -114,7 +118,7 @@ Testing
 * Prepare a test plan.
 * Test a deployment with activated plugin on all FUEL deployment modes.
 * Test VPN connection with test VPN point.
-* Integration tests with other OpenStack components and Neutron plugins.
+* Provide integration tests with other OpenStack components and Neutron plugins.
 
 Documentation Impact
 ====================
