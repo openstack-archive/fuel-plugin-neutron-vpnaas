@@ -1,0 +1,13 @@
+diff --git a/neutron/services/vpn/device_drivers/ipsec.py b/neutron/services/vpn/device_drivers/ipsec.py
+index c19b61e..9330a4a 100644
+--- a/neutron/services/vpn/device_drivers/ipsec.py
++++ b/neutron/services/vpn/device_drivers/ipsec.py
+@@ -304,7 +304,7 @@ class OpenSwanProcess(BaseSwanProcess):
+         self.config_file = os.path.join(
+             self.etc_dir, 'ipsec.conf')
+         self.pid_path = os.path.join(
+-            self.config_dir, 'var', 'run', 'pluto')
++            self.config_dir, 'var', 'run', 'pluto') + os.sep
+ 
+     def _execute(self, cmd, check_exit_code=True):
+         """Execute command on namespace."""

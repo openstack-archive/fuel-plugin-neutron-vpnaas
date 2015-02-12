@@ -1,0 +1,14 @@
+diff --git a/neutron/services/vpn/device_drivers/template/openswan/ipsec.conf.template b/neutron/services/vpn/device_drivers/template/openswan/ipsec.conf.template
+index 546e27e..c026806 100644
+--- a/neutron/services/vpn/device_drivers/template/openswan/ipsec.conf.template
++++ b/neutron/services/vpn/device_drivers/template/openswan/ipsec.conf.template
+@@ -29,8 +29,7 @@ conn %default
+     # rightsubnet=networkA/netmaskA, networkB/netmaskB (IKEv2 only)
+     rightnexthop=%defaultroute
+     # [mtu]
+-    # Note It looks like not supported in the strongswan driver
+-    # ignore it now
++    overridemtu={{ipsec_site_connection.mtu}}
+     # [dpd_action]
+     dpdaction={{ipsec_site_connection.dpd_action}}
+     # [dpd_interval]

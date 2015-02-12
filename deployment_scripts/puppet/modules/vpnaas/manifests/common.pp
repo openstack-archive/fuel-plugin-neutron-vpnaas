@@ -4,6 +4,7 @@
 class vpnaas::common {
 
     include vpnaas::params
+    include vpn-patch::dashboard
 
     service { $vpnaas::params::dashboard_service:
       ensure  => running,
@@ -36,6 +37,7 @@ class vpnaas::common {
       value                => 'plugin.VPNDriverPlugin',
     }
 
+    Class['vpn-patch::dashboard']               ~> Service[$vpnaas::params::dashboard_service]
     Exec['enable_vpnaas_dashboard']             ~> Service[$vpnaas::params::dashboard_service]
     Ini_subsetting['add_vpnaas_service_plugin'] ~> Service[$vpnaas::params::server_service]
 }
