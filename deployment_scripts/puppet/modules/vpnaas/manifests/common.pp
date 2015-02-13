@@ -1,5 +1,5 @@
 #This class contains common changes both for HA and simple deployment mode.
-#It enables VPN tab in Horizon and setups Neutron server.
+#It enables VPN in Horizon and Neutron server.
 
 class vpnaas::common {
 
