@@ -37,15 +37,10 @@ class vpnaas::ha {
     enabled        => false,
   }
 
-  service {'p_neutron-l3-agent':
-    enable     => true,
-    ensure     => stopped,
-    hasstatus  => true,
-    hasrestart => true,
-    provider   => 'pacemaker',
+  exec {'remove_p_neutron-l3-agent':
+    command   => "pcs resource disable p_neutron-l3-agent",
+    path      => '/usr/sbin:/usr/bin:/sbin:/bin',
   }
-
-  Service['p_neutron-l3-agent'] -> Class['vpnaas::agent']
 
   $csr_metadata        = undef
   $csr_complex_type    = 'clone'
@@ -90,9 +85,10 @@ class vpnaas::ha {
       command   => "pcs resource show p_neutron-vpn-agent > /dev/null 2>&1",
       path      => '/usr/sbin:/usr/bin:/sbin:/bin',
     }
-    Exec['waiting-for-vpn-agent'] -> Cluster::Corosync::Cs_service["vpn"]
+    Exec['waiting-for-vpn-agent']                   -> Cluster::Corosync::Cs_service["vpn"]
   }
 
+  Exec['remove_p_neutron-l3-agent']                 -> Cluster::Corosync::Cs_service["vpn"]
   File['q-agent-cleanup.py']                        -> Cluster::Corosync::Cs_service["vpn"]
   File["${vpnaas::params::vpn_agent_ocf_file}"]     -> Cluster::Corosync::Cs_service["vpn"] ->
   Cluster::Corosync::Cs_with_service['vpn-and-ovs'] -> Class['vpnaas::common']
