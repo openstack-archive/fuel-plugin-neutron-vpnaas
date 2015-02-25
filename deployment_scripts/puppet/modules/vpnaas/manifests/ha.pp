@@ -6,12 +6,9 @@ class vpnaas::ha {
   include neutron::params
 
   $fuel_settings      = parseyaml($astute_settings_yaml)
-  $access_hash        = $fuel_settings['access']
   $neutron_config     = $fuel_settings['quantum_settings']
-  $primary_controller = $fuel_settings['role'] ? { 'primary-controller'=>true, default=>false }
 
   $debug              = true
-  $verbose            = true
   $syslog             = $fuel_settings['use_syslog'] ? { default=>true }
   $plugin_config      = '/etc/neutron/l3_agent.ini'
 
@@ -74,18 +71,6 @@ class vpnaas::ha {
     service_title       => 'neutron-vpnaas-service',
     primary             => $primary_controller,
     hasrestart          => false,
-  }
-
-  #fuel-plugins system doesn't have 'primary-controller' role so
-  #we have to separate controllers' deployment here using waiting cycles.
-  if ! $primary_controller {
-    exec {'waiting-for-vpn-agent':
-      tries     => 30,
-      try_sleep => 10,
-      command   => "pcs resource show p_neutron-vpn-agent > /dev/null 2>&1",
-      path      => '/usr/sbin:/usr/bin:/sbin:/bin',
-    }
-    Exec['waiting-for-vpn-agent']                   -> Cluster::Corosync::Cs_service["vpn"]
   }
 
   Exec['remove_p_neutron-l3-agent']                 -> Cluster::Corosync::Cs_service["vpn"]

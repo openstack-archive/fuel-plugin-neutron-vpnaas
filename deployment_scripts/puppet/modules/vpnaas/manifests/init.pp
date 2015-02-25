@@ -1,15 +1,8 @@
-#This class deploys VPNaaS in simple mode.
 
 class vpnaas {
-
-  class {'vpnaas::agent':}
-  class {'vpnaas::common':}
-
-  service { 'disable-neutron-l3-service':
-    ensure  => stopped,
-    name    => "neutron-l3-agent",
-    enable  => false,
+  if $cluster_mode == 'ha_compact' {
+    include vpnaas::ha
+  } else {
+    include vpnaas::simple
   }
-
-  Service['disable-neutron-l3-service'] -> Class['vpnaas::agent'] -> Class['vpnaas::common']
 }
