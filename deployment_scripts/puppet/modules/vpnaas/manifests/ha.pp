@@ -17,14 +17,14 @@ class vpnaas::ha {
     mode   => '0755',
     owner  => root,
     group  => root,
-    source => "puppet:///modules/vpnaas/q-agent-cleanup.py",
+    source => 'puppet:///modules/vpnaas/q-agent-cleanup.py',
   }
 
-  file { "${vpnaas::params::vpn_agent_ocf_file}":
-    mode   => 644,
+  file { $vpnaas::params::vpn_agent_ocf_file:
+    mode   => '0644',
     owner  => root,
     group  => root,
-    source => "puppet:///modules/vpnaas/ocf/neutron-agent-vpn"
+    source => 'puppet:///modules/vpnaas/ocf/neutron-agent-vpn'
   }
 
   class {'vpnaas::common':}
@@ -35,13 +35,13 @@ class vpnaas::ha {
   }
 
   exec {'remove_p_neutron-l3-agent':
-    command   => "pcs resource disable p_neutron-l3-agent --wait=30",
+    command   => 'pcs resource disable p_neutron-l3-agent --wait=30',
     path      => '/usr/sbin:/usr/bin:/sbin:/bin',
   }
 
   $csr_metadata        = undef
   $csr_complex_type    = 'clone'
-  $csr_ms_metadata     = { 'interleave' => 'true' }
+  $csr_ms_metadata     = { 'interleave' => true }
 
   cluster::corosync::cs_with_service {'vpn-and-ovs':
     first   => "clone_p_${neutron::params::ovs_agent_service}",
@@ -73,8 +73,8 @@ class vpnaas::ha {
     hasrestart          => false,
   }
 
-  Exec['remove_p_neutron-l3-agent']                 -> Cluster::Corosync::Cs_service["vpn"]
-  File['q-agent-cleanup.py']                        -> Cluster::Corosync::Cs_service["vpn"]
-  File["${vpnaas::params::vpn_agent_ocf_file}"]     -> Cluster::Corosync::Cs_service["vpn"] ->
+  Exec['remove_p_neutron-l3-agent']                 -> Cluster::Corosync::Cs_service['vpn']
+  File['q-agent-cleanup.py']                        -> Cluster::Corosync::Cs_service['vpn']
+  File[$vpnaas::params::vpn_agent_ocf_file]         -> Cluster::Corosync::Cs_service['vpn'] ->
   Cluster::Corosync::Cs_with_service['vpn-and-ovs'] -> Class['vpnaas::common']
 }
