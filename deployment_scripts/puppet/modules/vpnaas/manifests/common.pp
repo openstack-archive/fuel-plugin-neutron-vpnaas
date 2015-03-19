@@ -21,8 +21,8 @@ class vpnaas::common {
     }
 
     exec {'enable_vpnaas_dashboard':
-      command => "/bin/sed -i \"s/'enable_vpn': False/'enable_vpn': True/\" $vpnaas::params::dashboard_settings",
-      unless  => "/bin/egrep \"'enable_vpn': True\" $vpnaas::params::dashboard_settings",
+      command => "/bin/sed -i \"s/'enable_vpn': False/'enable_vpn': True/\" ${vpnaas::params::dashboard_settings}",
+      unless  => "/bin/egrep \"'enable_vpn': True\" ${vpnaas::params::dashboard_settings}",
     }
 
     ini_subsetting {'add_vpnaas_service_plugin':
