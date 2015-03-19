@@ -7,7 +7,7 @@ class vpnaas::simple {
 
   service { 'disable-neutron-l3-service':
     ensure  => stopped,
-    name    => "neutron-l3-agent",
+    name    => 'neutron-l3-agent',
     enable  => false,
   }
 
