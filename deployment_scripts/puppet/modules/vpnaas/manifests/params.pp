@@ -34,6 +34,6 @@ class vpnaas::params {
 
   $openswan_package     = 'openswan'
 
-  $vpn_agent_ocf_file   = '/etc/puppet/modules/cluster/files/ocf/neutron-agent-vpn'
+  $vpn_agent_ocf_file   = '/etc/puppet/modules/cluster/files/ocf/ocf-neutron-vpn-agent'
   $cleanup_script_file  = '/etc/puppet/modules/cluster/files/q-agent-cleanup.py'
 }

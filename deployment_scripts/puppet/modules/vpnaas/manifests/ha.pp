@@ -24,7 +24,7 @@ class vpnaas::ha {
     mode   => '0644',
     owner  => root,
     group  => root,
-    source => 'puppet:///modules/vpnaas/ocf/neutron-agent-vpn'
+    source => 'puppet:///modules/vpnaas/ocf/ocf-neutron-vpn-agent'
   }
 
   class {'vpnaas::common':}
@@ -49,7 +49,7 @@ class vpnaas::ha {
   }
 
   cluster::corosync::cs_service {'vpn':
-    ocf_script      => 'neutron-agent-vpn',
+    ocf_script      => 'ocf-neutron-vpn-agent',
     csr_parameters  => {
       'debug'           => $debug,
       'syslog'          => $syslog,
