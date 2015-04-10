@@ -14,7 +14,8 @@ licenses: ['Apache License Version 2.0']
 authors: ['Andrey Epifanov, Sergey Kolekonov']
 # A link to the plugin's page
 homepage: 'https://github.com/stackforge/fuel-plugin-neutron-vpnaas'
-groups: []
+# Groups
+groups: ['network']
 
 # The plugin is compatible with releases in the list
 releases:
