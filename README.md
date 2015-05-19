@@ -21,17 +21,17 @@ Building the plugin
 
    ``fpb --build fuel-plugin-neutron-vpnaas/``
 
-4. The vpnaas-plugin-<x.x.x>.fp plugin file will be created in the plugin folder
+4. The vpnaas-plugin-<x.x.x>.rpm plugin package will be created in the plugin folder
    (fuel-plugin-neutron-vpnaas/).
 
 5. Move this file to the Fuel Master node with secure copy (scp):
 
-   ``scp vpnaas-plugin-<x.x.x>.fp root@:<the_Fuel_Master_node_IP address>:/tmp``
+   ``scp vpnaas-plugin-<x.x.x>.rpm root@:<the_Fuel_Master_node_IP address>:/tmp``
    ``cd /tmp``
 
 6. Install the VPNaaS plugin:
 
-   ``fuel plugins --install vpnaas-plugin-<x.x.x>.fp``
+   ``fuel plugins --install vpnaas-plugin-<x.x.x>.rpm``
 
 6. Plugin is ready to use and can be enabled on the Settings tab of the Fuel web UI.
 
