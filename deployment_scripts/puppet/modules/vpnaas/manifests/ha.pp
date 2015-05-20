@@ -21,7 +21,7 @@ class vpnaas::ha {
   }
 
   file { $vpnaas::params::vpn_agent_ocf_file:
-    mode   => '0644',
+    mode   => '0755',
     owner  => root,
     group  => root,
     source => 'puppet:///modules/vpnaas/ocf/ocf-neutron-vpn-agent'
