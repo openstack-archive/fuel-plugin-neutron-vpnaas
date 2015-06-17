@@ -1,4 +1,3 @@
-#
 # Copyright (C) 2013 eNovance SAS <licensing@enovance.com>
 #
 # Author: Emilien Macchi <emilien.macchi@enovance.com>
