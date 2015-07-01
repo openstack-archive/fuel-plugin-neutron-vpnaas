@@ -13,3 +13,10 @@
     puppet_manifest: puppet/manifests/controller.pp
     puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 720
+
+- role: ['primary-controller']
+  stage: pre_deployment
+  type: shell
+  parameters:
+    cmd: if [ -n "$(which pcs 2>/dev/null)" -a -n "$(pcs resource show p_neutron-vpn-agent 2>/dev/null)" ]; then pcs resource disable p_neutron-vpn-agent --wait=30; fi
+    timeout: 40
