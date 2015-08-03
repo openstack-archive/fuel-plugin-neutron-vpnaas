@@ -11,8 +11,11 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-
-#This class contains necessary parameters for all other manifests
+#
+# == Class: vpnaas::params
+#
+# This class contains necessary parameters for all other manifests
+#
 
 class vpnaas::params {
 
@@ -49,5 +52,4 @@ class vpnaas::params {
   $openswan_package     = 'openswan'
 
   $vpn_agent_ocf_file   = '/usr/lib/ocf/resource.d/fuel/ocf-neutron-vpn-agent'
-  $cleanup_script_file  = '/etc/puppet/modules/cluster/files/q-agent-cleanup.py'
 }

@@ -4,7 +4,7 @@ VPNaaS plugin
 VPNaaS (VPN-as-a-Service) is a Neutron extension that introduces VPN feature set.
 
 This repo contains all necessary files to build VPNaaS Fuel plugin.
-Currently, the only supported Fuel version is 6.1.
+Supported Fuel version is 7.0.
 
 Building the plugin
 -------------------
