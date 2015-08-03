@@ -47,7 +47,7 @@ class vpnaas::agent (
   $package_ensure              = present,
   $enabled                     = true,
   $manage_service              = true,
-  $vpn_device_driver           = 'neutron.services.vpn.device_drivers.ipsec.OpenSwanDriver',
+  $vpn_device_driver           = 'neutron_vpnaas.services.vpn.device_drivers.ipsec.OpenSwanDriver',
   $interface_driver            = 'neutron.agent.linux.interface.OVSInterfaceDriver',
   $external_network_bridge     = undef,
   $ipsec_status_check_interval = '60',
