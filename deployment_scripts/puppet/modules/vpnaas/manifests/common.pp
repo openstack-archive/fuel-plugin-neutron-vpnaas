@@ -11,9 +11,11 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-
-#This class contains common changes both for HA and simple deployment mode.
-#It enables VPN in Horizon and Neutron server.
+# == Class: vpnaas::common
+#
+# This class contains common changes both for HA and simple deployment mode.
+# It enables VPN in Horizon and Neutron server.
+#
 
 class vpnaas::common {
 
@@ -52,4 +54,19 @@ class vpnaas::common {
 
     Exec['enable_vpnaas_dashboard']             ~> Service[$vpnaas::params::dashboard_service]
     Ini_subsetting['add_vpnaas_service_plugin'] ~> Service[$vpnaas::params::server_service]
+
+    if $primary_controller {
+
+      Package<| title == 'neutron-vpnaas-agent' |> -> Exec['neutron-db-sync']
+
+      exec { 'neutron-db-sync':
+        command     => 'neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini --service vpnaas upgrade head',
+        path        => '/usr/bin',
+        refreshonly => true,
+        tries       => 10,
+        try_sleep   => 10,
+      }
+      Ini_subsetting['add_vpnaas_service_plugin'] ~> Exec['neutron-db-sync']
+      Exec['neutron-db-sync']                     ~> Service <| title == 'neutron-server' |>
+  }
 }
