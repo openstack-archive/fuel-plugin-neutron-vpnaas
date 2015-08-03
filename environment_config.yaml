@@ -4,3 +4,5 @@ attributes:
     restrictions:
       - condition: cluster:net_provider != 'neutron'
         action: hide
+      - condition: settings:neutron_advanced_configuration.neutron_dvr.value != false
+        action: hide
