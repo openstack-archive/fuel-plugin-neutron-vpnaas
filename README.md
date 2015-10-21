@@ -11,7 +11,7 @@ Building the plugin
 
 1. Clone the fuel-plugin repo from:
 
-    ``git clone https://github.com/stackforge/fuel-plugin-neutron-vpnaas``
+    ``git clone https://github.com/openstack/fuel-plugin-neutron-vpnaas``
 
 2. Install the Fuel Plugin Builder:
 
