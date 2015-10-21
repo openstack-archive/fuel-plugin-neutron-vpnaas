@@ -13,7 +13,7 @@ licenses: ['Apache License Version 2.0']
 # Specify author or company name
 authors: ['Andrey Epifanov, Sergey Kolekonov']
 # A link to the plugin's page
-homepage: 'https://github.com/stackforge/fuel-plugin-neutron-vpnaas'
+homepage: 'https://github.com/openstack/fuel-plugin-neutron-vpnaas'
 # Groups
 groups: ['network']
 
