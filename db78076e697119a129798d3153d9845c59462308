@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: Andrey Epifanov <aepifanov@mirantis.com>
+Workflow+1: Andrey Epifanov <aepifanov@mirantis.com>
+Verified+1: Plugins CI <plugins.ci@mirantis.com>
+Submitted-by: Jenkins
+Submitted-at: Tue, 15 Dec 2015 10:54:20 +0000
+Reviewed-on: https://review.openstack.org/257824
+Project: openstack/fuel-plugin-neutron-vpnaas
+Branch: refs/heads/master
