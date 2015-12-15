@@ -44,7 +44,13 @@ class vpnaas::ha {
       onlyif  => 'pcs resource show p_neutron-l3-agent 2>&1 > /dev/null',
       path    => '/usr/sbin:/usr/bin:/sbin:/bin',
     }
-    Exec['remove_p_neutron-l3-agent'] -> Cluster::Corosync::Cs_service['vpn']
+    exec {'remove_p_neutron-vpn-agent':
+      command => 'pcs resource delete p_neutron-vpn-agent --wait=60',
+      onlyif  => 'pcs resource show p_neutron-vpn-agent 2>&1 > /dev/null',
+      path    => '/usr/sbin:/usr/bin:/sbin:/bin',
+    }
+    Exec['remove_p_neutron-l3-agent']  -> Cluster::Corosync::Cs_service['vpn']
+    Exec['remove_p_neutron-vpn-agent'] -> Cluster::Corosync::Cs_service['vpn']
   }
 
   $csr_metadata        = undef
