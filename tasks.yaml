@@ -18,5 +18,5 @@
   stage: pre_deployment
   type: shell
   parameters:
-    cmd: if [ -n "$(which pcs 2>/dev/null)" -a -n "$(pcs resource show p_neutron-vpn-agent 2>/dev/null)" ]; then pcs resource delete p_neutron-vpn-agent --wait=60; fi
+    cmd: ./remove_vpn_agent.sh
     timeout: 90
