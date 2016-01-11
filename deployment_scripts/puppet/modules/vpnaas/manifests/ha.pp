@@ -40,12 +40,12 @@ class vpnaas::ha {
 
   if $primary_controller {
     exec {'remove_p_neutron-l3-agent':
-      command => 'pcs resource delete p_neutron-l3-agent --wait=60',
+      command => 'pcs resource delete p_neutron-l3-agent --wait=600',
       onlyif  => 'pcs resource show p_neutron-l3-agent 2>&1 > /dev/null',
       path    => '/usr/sbin:/usr/bin:/sbin:/bin',
     }
     exec {'remove_p_neutron-vpn-agent':
-      command => 'pcs resource delete p_neutron-vpn-agent --wait=60',
+      command => 'pcs resource delete p_neutron-vpn-agent --wait=600',
       onlyif  => 'pcs resource show p_neutron-vpn-agent 2>&1 > /dev/null',
       path    => '/usr/sbin:/usr/bin:/sbin:/bin',
     }

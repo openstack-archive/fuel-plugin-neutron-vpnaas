@@ -19,4 +19,4 @@
   type: shell
   parameters:
     cmd: ./disable_vpn_agent.sh
-    timeout: 90
+    timeout: 720
