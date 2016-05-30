@@ -60,7 +60,7 @@ class vpnaas::common {
       Package<| title == 'neutron-vpnaas-agent' |> -> Exec['neutron-db-sync']
 
       exec { 'neutron-db-sync':
-        command     => 'neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini --service vpnaas upgrade head',
+        command     => 'neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini --subproject neutron-vpnaas upgrade head',
         path        => '/usr/bin',
         refreshonly => true,
         tries       => 10,
