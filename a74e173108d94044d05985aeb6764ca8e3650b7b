@@ -1,0 +1,11 @@
+Verified+1: Plugins CI <plugins.ci@mirantis.com>
+Code-Review+1: Ann Kamyshnikova <akamyshnikova@mirantis.com>
+Code-Review+2: Sergey Kolekonov <skolekonov@mirantis.com>
+Code-Review+1: Elena Ezhova <eezhova@mirantis.com>
+Workflow+1: Sergey Kolekonov <skolekonov@mirantis.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 08 Jun 2016 15:43:37 +0000
+Reviewed-on: https://review.openstack.org/322880
+Project: openstack/fuel-plugin-neutron-vpnaas
+Branch: refs/heads/master
