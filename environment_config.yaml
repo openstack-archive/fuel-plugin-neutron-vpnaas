@@ -1,8 +1,0 @@
-attributes:
-  # Show vpnaas only for neutron
-  metadata:
-    restrictions:
-      - condition: cluster:net_provider != 'neutron'
-        action: hide
-      - condition: settings:neutron_advanced_configuration.neutron_dvr.value == true
-        message: "Neutron DVR must be disabled in order to use VPNaaS plugin"
